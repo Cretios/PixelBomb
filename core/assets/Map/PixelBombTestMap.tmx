@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="80" height="45" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="PixelBombsTiles" tilewidth="16" tileheight="16" tilecount="4096">
+  <image source="PixelBombTileSet.png" trans="ff00ff" width="1024" height="1024"/>
+ </tileset>
+ <layer name="Background" width="80" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKHr/sXXYyi4aqqqqqqqqqqqqqqqqqrqqwcAAjKa
+  </data>
+ </layer>
+ <layer name="Street" width="80" height="45">
+  <data encoding="base64" compression="zlib">
+   eJztzrENACAMBLEPmYz9l6KlQaJLY0vXXwIAAADcViU777oG5wAAAAAAAAAAAAA+HUG8Ac8=
+  </data>
+ </layer>
+</map>
