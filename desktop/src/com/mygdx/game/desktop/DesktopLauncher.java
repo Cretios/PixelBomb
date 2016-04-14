@@ -10,7 +10,7 @@ import com.mygdx.game.MyGdxGame;
  *
  *         Hier mit startest Du das Programm
  * 
- *         NICHT BEARBEITEN
+ *         NICHT BEARBEITEN oke schäff
  */
 public class DesktopLauncher {
 	public static void main(String[] arg) {
