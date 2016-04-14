@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="left-up" width="80" height="45" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="left-up" width="80" height="45" tilewidth="16" tileheight="16" nextobjectid="3">
  <tileset firstgid="1" name="PixelBombsTiles" tilewidth="16" tileheight="16" tilecount="4096">
   <image source="PixelBombTileSet.png" trans="ff00ff" width="1024" height="1024"/>
  </tileset>
@@ -10,7 +10,10 @@
  </layer>
  <layer name="Street" width="80" height="45">
   <data encoding="base64" compression="zlib">
-   eJztzrENACAMBLEPmYz9l6KlQaJLY0vXXwIAAADcViU777oG5wAAAAAAAAAAAAA+HUG8Ac8=
+   eJzt2DEKgDAQRcFFT6aeTHJxtbf7EBIyA9sum1emCgAA/u3vHOFs3a8exz3Ijlnpl9Evo19Gv4x+Gf0y+mX0y3xvb+Gs3m+EHbPSL3NV/n9wdr8aAAAAAAAAYA0PTNkc8w==
   </data>
  </layer>
+ <objectgroup name="Spawns">
+  <object id="1" name="Spawn1" x="448.045" y="128.136" width="16" height="16"/>
+ </objectgroup>
 </map>

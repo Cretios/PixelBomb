@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import model.GameModel;
+import model.Global;
 import screens.Screens;
 
 import com.badlogic.gdx.Game;
@@ -11,10 +13,14 @@ import com.badlogic.gdx.Game;
  *         Start Klasse NICHT ANFASSEN
  */
 public class MyGdxGame extends Game {
+	GameModel gameModel;
 
 	@Override
 	public void create() {
-		setScreen(new Screens());
+		Global.load();
+		gameModel = new GameModel();
+
+		setScreen(new Screens(gameModel));
 
 	}
 

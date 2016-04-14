@@ -1,12 +1,15 @@
 package screens;
 
+import model.GameModel;
+import model.Global;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -23,17 +26,20 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Screens implements Screen {
 
-	private TiledMap map;
+	SpriteBatch batch;
+
 	private OrthogonalTiledMapRenderer renderer;
 	private OrthographicCamera camera;
 
 	ShapeRenderer shapeRenderer;
 
-	public Screens() {
+	private GameModel gameModel;
 
+	public Screens(GameModel gameModel) {
+		this.gameModel = gameModel;
 	}
 
-	public Vector2 transformTilesToPixel(int tileX, int tileY) {
+	public Vector2 transformTilesToPixel(float tileX, float tileY) {
 		if (tileY < 14) {
 			tileY = 14;
 		}
@@ -47,11 +53,8 @@ public class Screens implements Screen {
 	public void show() {
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
-		System.out.println(h);
 
-		map = new TmxMapLoader().load("map/PixelBombTestMap.tmx");
-
-		renderer = new OrthogonalTiledMapRenderer(map);
+		renderer = new OrthogonalTiledMapRenderer(Global.map);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1280, 720);
 		camera.position.set(transformTilesToPixel(19, 13), 0);
@@ -59,6 +62,30 @@ public class Screens implements Screen {
 		camera.update();
 
 		shapeRenderer = new ShapeRenderer();
+
+		batch = new SpriteBatch();
+
+	}
+
+	public void playerRender() {
+		Vector2 pos;
+
+		for (int i = 0; i < gameModel.players.length; i++) {
+			if (gameModel.players[i] != null) {
+				if (gameModel.players[i].getPlayerNum() == 1) {
+
+					Sprite s = Global.player1Sprite;
+
+					s.setPosition(gameModel.players[i].getPosition().x,
+							gameModel.players[i].getPosition().y);
+
+					renderer.getBatch().begin();
+					s.draw(renderer.getBatch());
+					renderer.getBatch().end();
+
+				}
+			}
+		}
 
 	}
 
@@ -69,7 +96,7 @@ public class Screens implements Screen {
 
 		renderer.setView(camera);
 		renderer.render();
-
+		playerRender();
 	}
 
 	@Override
@@ -100,7 +127,6 @@ public class Screens implements Screen {
 
 	@Override
 	public void dispose() {
-		map.dispose();
 		renderer.dispose();
 		disposeRats();
 	}
