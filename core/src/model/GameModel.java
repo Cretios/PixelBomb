@@ -7,6 +7,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
 
+import controller.PlayerController;
+
 /**
  * 
  * @author Paul
@@ -21,6 +23,7 @@ public class GameModel {
 	public Player[] players;
 	private int playerCounter;
 	TiledMap map;
+	PlayerController controller;
 
 	public GameModel() {
 
