@@ -1,15 +1,22 @@
 package screens;
 
+import java.util.ArrayList;
+
 import model.GameModel;
 import model.Global;
+import Collision.ColliderRectangle;
+import characters.Player;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -24,7 +31,7 @@ import com.badlogic.gdx.math.Vector2;
  *
  */
 
-public class Screens implements Screen {
+public class Screens implements Screen, InputProcessor {
 
 	SpriteBatch batch;
 
@@ -35,8 +42,15 @@ public class Screens implements Screen {
 
 	private GameModel gameModel;
 
+	private ArrayList<Sprite> sprites;
+	private ArrayList<ColliderRectangle> collider;
+	private boolean colliderRender;
+
 	public Screens(GameModel gameModel) {
 		this.gameModel = gameModel;
+		this.sprites = new ArrayList<Sprite>();
+		this.collider = new ArrayList<ColliderRectangle>();
+		this.colliderRender = false;
 	}
 
 	public Vector2 transformTilesToPixel(float tileX, float tileY) {
@@ -59,6 +73,7 @@ public class Screens implements Screen {
 		camera.setToOrtho(false, 1280, 720);
 		camera.position.set(transformTilesToPixel(19, 13), 0);
 		// camera.position.set(20, 24, 3);
+
 		camera.update();
 
 		shapeRenderer = new ShapeRenderer();
@@ -68,20 +83,21 @@ public class Screens implements Screen {
 	}
 
 	public void playerRender() {
-		Vector2 pos;
 
-		for (int i = 0; i < gameModel.players.length; i++) {
-			if (gameModel.players[i] != null) {
-				if (gameModel.players[i].getPlayerNum() == 1) {
+		for (int i = 0; i < gameModel.players.size; i++) {
+			if (gameModel.players.get(i).player != null) {
+				if (gameModel.players.get(i).player.getPlayerNum() == 1) {
 
+					Player player = gameModel.players.get(i).player;
 					Sprite s = Global.player1Sprite;
 
-					s.setPosition(gameModel.players[i].getPosition().x,
-							gameModel.players[i].getPosition().y);
+					s.setPosition(player.getPosition().x,
+							player.getPosition().y);
 
-					renderer.getBatch().begin();
-					s.draw(renderer.getBatch());
-					renderer.getBatch().end();
+					ColliderRectangle playercoll = player.getCollider();
+
+					collider.add(playercoll);
+					sprites.add(s);
 
 				}
 			}
@@ -97,6 +113,30 @@ public class Screens implements Screen {
 		renderer.setView(camera);
 		renderer.render();
 		playerRender();
+		gameModel.update(delta);
+
+		for (Sprite s : sprites) {
+			renderer.getBatch().begin();
+			s.draw(renderer.getBatch());
+			renderer.getBatch().end();
+		}
+		if (colliderRender) {
+			for (ColliderRectangle c : collider) {
+				shapeRenderer.setProjectionMatrix(camera.combined);
+				shapeRenderer.begin(ShapeType.Line);
+
+				shapeRenderer.line(c.getBL(), c.getBR());
+				shapeRenderer.line(c.getBL(), c.getUL());
+				shapeRenderer.line(c.getBR(), c.getUR());
+				shapeRenderer.line(c.getUL(), c.getUR());
+				shapeRenderer.setColor(Color.RED);
+
+				shapeRenderer.end();
+
+			}
+		}
+		sprites.clear();
+		collider.clear();
 	}
 
 	@Override
@@ -105,6 +145,11 @@ public class Screens implements Screen {
 		camera.viewportHeight = height;
 		camera.zoom = 0.5f;
 		camera.update();
+
+	}
+
+	private void toggleRenderCollider() {
+		this.colliderRender = !colliderRender;
 
 	}
 
@@ -128,11 +173,55 @@ public class Screens implements Screen {
 	@Override
 	public void dispose() {
 		renderer.dispose();
-		disposeRats();
 	}
 
-	public void disposeRats() {
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
 
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		if (character == 'h') {
+			toggleRenderCollider();
+		}
+		return false;
 	}
 
 }

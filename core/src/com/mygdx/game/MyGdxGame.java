@@ -5,6 +5,10 @@ import model.Global;
 import screens.Screens;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 
 /**
  * 
@@ -14,13 +18,16 @@ import com.badlogic.gdx.Game;
  */
 public class MyGdxGame extends Game {
 	GameModel gameModel;
+	InputMultiplexer inputMultiplexer;
 
 	@Override
 	public void create() {
 		Global.load();
 		gameModel = new GameModel();
-
-		setScreen(new Screens(gameModel));
+		inputMultiplexer = new InputMultiplexer();
+		InputProcessor screen = new Screens(gameModel);
+		setScreen((Screen) screen);
+		addInputProcessor(screen);
 
 	}
 
@@ -47,5 +54,10 @@ public class MyGdxGame extends Game {
 	@Override
 	public void resume() {
 		super.resume();
+	}
+
+	public void addInputProcessor(InputProcessor inputProcessor) {
+		inputMultiplexer.addProcessor(inputProcessor);
+		Gdx.input.setInputProcessor(inputMultiplexer);
 	}
 }

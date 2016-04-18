@@ -6,6 +6,8 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.IntMap;
+import com.badlogic.gdx.utils.IntMap.Entry;
 
 import controller.PlayerController;
 
@@ -20,15 +22,14 @@ import controller.PlayerController;
  *
  */
 public class GameModel {
-	public Player[] players;
+	public IntMap<PlayerController> players;
 	private int playerCounter;
 	TiledMap map;
-	PlayerController controller;
 
 	public GameModel() {
 
 		// 4 Spieler
-		players = new Player[4];
+		players = new IntMap<PlayerController>();
 		// Spieler Nummer
 		playerCounter = 1;
 
@@ -37,16 +38,27 @@ public class GameModel {
 		MapObjects objlayer = Global.map.getLayers().get("Spawns").getObjects();
 		for (int i = 0; i < objlayer.getCount(); i++) {
 			RectangleMapObject obj = (RectangleMapObject) objlayer.get(i);
-			players[i] = createPlayer(new Vector2(obj.getRectangle().x,
-					obj.getRectangle().y));
+			players.put(
+					i,
+					createPlayer(new Vector2(obj.getRectangle().x, obj
+							.getRectangle().y)));
+		}
+	}
+
+	public void update(float delta) {
+		for (Entry<PlayerController> player : players) {
+			if (!player.value.player.equals(null))
+				player.value.update(delta);
 		}
 	}
 
 	// Spieler erstellen Methode
-	public Player createPlayer(Vector2 pos) {
+	public PlayerController createPlayer(Vector2 pos) {
 		Player player = new Player(pos, playerCounter);
 		playerCounter++;
 
-		return player;
+		PlayerController playerController = new PlayerController(player);
+
+		return playerController;
 	}
 }

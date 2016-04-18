@@ -1,5 +1,7 @@
 package characters;
 
+import Collision.ColliderRectangle;
+
 import com.badlogic.gdx.math.Vector2;
 
 /**
@@ -12,6 +14,9 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Player {
 
+	// Spieler Collider
+	private ColliderRectangle collider;
+
 	// Position des Spielers
 	private Vector2 position;
 
@@ -19,8 +24,11 @@ public class Player {
 	private int playerNum;
 
 	public Player(Vector2 pos, int playerNum) {
+
 		this.setPosition(pos);
 		this.setPlayerNum(playerNum);
+		this.setCollider(new ColliderRectangle(pos.x + 8, pos.y + 8, 16, 16));
+
 	}
 
 	public Vector2 getPosition() {
@@ -37,6 +45,14 @@ public class Player {
 
 	public void setPlayerNum(int playerNum) {
 		this.playerNum = playerNum;
+	}
+
+	public ColliderRectangle getCollider() {
+		return collider;
+	}
+
+	public void setCollider(ColliderRectangle collider) {
+		this.collider = collider;
 	}
 
 }
