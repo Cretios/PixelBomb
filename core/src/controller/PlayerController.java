@@ -23,6 +23,12 @@ public class PlayerController {
 		this.player = player;
 	}
 
+	/**
+	 * Aktuallisierungsfunktion laeuft permanent wichtig für Bewegung und
+	 * Collider
+	 * 
+	 * @param delta
+	 */
 	public void update(float delta) {
 		movement(delta);
 		player.getCollider().update(player.getPosition(), 8, 8);
