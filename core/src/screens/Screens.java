@@ -80,6 +80,7 @@ public class Screens implements Screen, InputProcessor {
 
 		batch = new SpriteBatch();
 
+		
 	}
 
 	public void playerRender() {
@@ -114,7 +115,13 @@ public class Screens implements Screen, InputProcessor {
 		renderer.render();
 		playerRender();
 		gameModel.update(delta);
-
+//		---
+		Vector2 waskurzes = new Vector2(gameModel.wand.pos.x, gameModel.wand.pos.y);
+		Sprite a = Global.player1Sprite;
+		System.out.println(waskurzes);
+		a.setPosition(	waskurzes.x, waskurzes.y);
+		sprites.add(a);
+//		---
 		for (Sprite s : sprites) {
 			renderer.getBatch().begin();
 			s.draw(renderer.getBatch());
