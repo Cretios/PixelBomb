@@ -1,7 +1,5 @@
 package screens;
 
-import java.util.ArrayList;
-
 import model.GameModel;
 import model.Global;
 import Collision.ColliderRectangle;
@@ -19,6 +17,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * 
@@ -42,24 +41,24 @@ public class Screens implements Screen, InputProcessor {
 
 	private GameModel gameModel;
 
-	private ArrayList<Sprite> sprites;
-	private ArrayList<ColliderRectangle> collider;
+	private Array<Sprite> sprites;
+	private Array<ColliderRectangle> collider;
 	private boolean colliderRender;
 
 	public Screens(GameModel gameModel) {
 		this.gameModel = gameModel;
-		this.sprites = new ArrayList<Sprite>();
-		this.collider = new ArrayList<ColliderRectangle>();
+		this.sprites = new Array<Sprite>();
+		this.collider = new Array<ColliderRectangle>();
 		this.colliderRender = false;
 	}
 
 	public Vector2 transformTilesToPixel(float tileX, float tileY) {
-		if (tileY < 14) {
-			tileY = 14;
-		}
-		if (tileX < 20) {
-			tileX = 20;
-		}
+		// if (tileY < 14) {
+		// tileY = 14;
+		// }
+		// if (tileX < 20) {
+		// tileX = 20;
+		// }
 		return new Vector2(tileX * 16, (44 - tileY) * 16);
 	}
 
@@ -80,7 +79,6 @@ public class Screens implements Screen, InputProcessor {
 
 		batch = new SpriteBatch();
 
-		
 	}
 
 	public void playerRender() {
@@ -90,11 +88,12 @@ public class Screens implements Screen, InputProcessor {
 				if (gameModel.players.get(i).player.getPlayerNum() == 1) {
 
 					Player player = gameModel.players.get(i).player;
-					Sprite s = Global.player1Sprite;
+					Sprite s = new Sprite(Global.player1Sprite);
 
 					s.setPosition(player.getPosition().x,
 							player.getPosition().y);
 
+					System.out.println(player.getPosition());
 					ColliderRectangle playercoll = player.getCollider();
 
 					collider.add(playercoll);
@@ -106,6 +105,15 @@ public class Screens implements Screen, InputProcessor {
 
 	}
 
+	public void walls() {
+		Vector2 wall = transformTilesToPixel(gameModel.wand.pos.x,
+				gameModel.wand.pos.y);
+		Sprite a = new Sprite(Global.player1Sprite);
+		a.setPosition(wall.x, wall.y);
+		// a.setPosition(20, 20);
+		sprites.add(a);
+	}
+
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -114,14 +122,11 @@ public class Screens implements Screen, InputProcessor {
 		renderer.setView(camera);
 		renderer.render();
 		playerRender();
+		walls();
 		gameModel.update(delta);
-//		---
-		Vector2 waskurzes = new Vector2(gameModel.wand.pos.x, gameModel.wand.pos.y);
-		Sprite a = Global.player1Sprite;
-		System.out.println(waskurzes);
-		a.setPosition(	waskurzes.x, waskurzes.y);
-		sprites.add(a);
-//		---
+		// ---
+
+		// ---
 		for (Sprite s : sprites) {
 			renderer.getBatch().begin();
 			s.draw(renderer.getBatch());

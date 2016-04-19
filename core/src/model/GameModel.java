@@ -26,7 +26,7 @@ public class GameModel {
 	private int playerCounter;
 	TiledMap map;
 	public Wand wand;
-	
+
 	public GameModel() {
 
 		// 4 Spieler
@@ -43,7 +43,7 @@ public class GameModel {
 					i,
 					createPlayer(new Vector2(obj.getRectangle().x, obj
 							.getRectangle().y)));
-		wand = new Wand(new Vector2(26, 10));	
+			wand = new Wand(new Vector2(26, 10));
 		}
 	}
 
@@ -63,5 +63,5 @@ public class GameModel {
 
 		return playerController;
 	}
-	
+
 }
