@@ -13,16 +13,11 @@ import com.badlogic.gdx.math.Vector2;
  *
  */
 public class Player {
-
-	// Spieler Collider
+	
 	private ColliderRectangle collider;
-
-	// Position des Spielers
 	private Vector2 position;
-
-	// Welcher Spieler? 1,2,3...
 	private int playerNum;
-
+	public boolean cantmove;
 	public Player(Vector2 pos, int playerNum) {
 
 		this.setPosition(pos);
@@ -31,6 +26,7 @@ public class Player {
 
 	}
 
+	
 	public Vector2 getPosition() {
 		return position;
 	}

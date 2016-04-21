@@ -89,8 +89,8 @@ public class PlayerController {
 		// eine sekunde warten damit der spieler sich nicht "beamt"
 		// wird später angepasst damit der spieler flüssig läuft
 		if (waittime < 0) {
-
-			// Tastenanschlag W
+			
+			if (Player.cantmove == false){
 			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
 				// die Bewegung (hoch)
@@ -101,7 +101,7 @@ public class PlayerController {
 
 			}
 		
-			// Tastenanschlag A
+			
 			else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 
 				// die Bewegung (links)
@@ -109,7 +109,7 @@ public class PlayerController {
 				// Wartezeit zuruecksetzen
 				waittime = 0.25f;
 			}
-			// Tastenanschlag S
+			
 			else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 
 				// die Bewegung (runter)
@@ -117,13 +117,53 @@ public class PlayerController {
 				// Wartezeit zuruecksetzen
 				waittime = 0.25f;
 			}
-			// Tastenanschlag D
+			
 			else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 
 				// die Bewegung (rechts)
 				bewegungrechts();
 				waittime = 0.25f;
-			}
+			
+			}}
 		}
 	}
-}
+	
+	public void collision(){
+		
+	
+	}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

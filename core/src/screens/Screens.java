@@ -93,7 +93,7 @@ public class Screens implements Screen, InputProcessor {
 					s.setPosition(player.getPosition().x,
 							player.getPosition().y);
 
-					System.out.println(player.getPosition());
+				
 					ColliderRectangle playercoll = player.getCollider();
 
 					collider.add(playercoll);
