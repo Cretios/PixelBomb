@@ -18,6 +18,7 @@ public class Player {
 	private Vector2 position;
 	private int playerNum;
 	public boolean cantmove;
+	
 	public Player(Vector2 pos, int playerNum) {
 
 		this.setPosition(pos);

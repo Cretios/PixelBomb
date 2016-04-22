@@ -1,5 +1,6 @@
 package controller;
 
+import Collision.ColliderRectangle;
 import characters.Player;
 
 import com.badlogic.gdx.Gdx;
@@ -85,11 +86,8 @@ public class PlayerController {
 	public void movement(float delta) {
 		// warte zeit wird runtergezählt
 		waittime -= delta;
-
-		// eine sekunde warten damit der spieler sich nicht "beamt"
-		// wird später angepasst damit der spieler flüssig läuft
 		if (waittime < 0) {
-			
+			Player.cantmove = bolean ColliderRectangle.this.collision(r);
 			if (Player.cantmove == false){
 			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
@@ -126,7 +124,7 @@ public class PlayerController {
 			
 			}}
 		}
-	}
+	
 	
 	public void collision(){
 		
