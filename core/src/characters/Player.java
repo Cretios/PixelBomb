@@ -17,7 +17,7 @@ public class Player {
 	private ColliderRectangle collider;
 	private Vector2 position;
 	private int playerNum;
-	public boolean cantmove;
+	public boolean canmove;
 	
 	public Player(Vector2 pos, int playerNum) {
 

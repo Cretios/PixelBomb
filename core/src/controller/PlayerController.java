@@ -16,12 +16,11 @@ import com.badlogic.gdx.math.Vector2;
 public class PlayerController {
 
 	private float waittime;
-
-	public Player player;
+	public Player anni;
 
 	public PlayerController(Player player) {
 		this.waittime = 1;
-		this.player = player;
+		this.anni = player;
 	}
 
 	/**
@@ -32,7 +31,7 @@ public class PlayerController {
 	 */
 	public void update(float delta) {
 		movement(delta);
-		player.getCollider().update(player.getPosition(), 8, 8);
+		anni.getCollider().update(anni.getPosition(), 8, 8);
 	}
 
 	public void bewegunghoch() {
@@ -40,22 +39,22 @@ public class PlayerController {
 		float b;
 		Vector2 position;
 		Vector2 ziel;
-		position = player.getPosition();
+		position = anni.getPosition();
 		a = position.x + 0;
 		b = position.y + 16;
 		ziel = new Vector2(a, b);
-		player.setPosition(ziel);
+		anni.setPosition(ziel);
 	}
 	public void bewegungrunter() {
 		float a;
 		float b;
 		Vector2 position;
 		Vector2 ziel;
-		position = player.getPosition();
+		position = anni.getPosition();
 		a = position.x + 0;
 		b = position.y - 16;
 		ziel = new Vector2(a, b);
-		player.setPosition(ziel);
+		anni.setPosition(ziel);
 
 	}
 	public void bewegungrechts() {
@@ -63,11 +62,11 @@ public class PlayerController {
 		float b;
 		Vector2 position;
 		Vector2 ziel;
-		position = player.getPosition();
+		position = anni.getPosition();
 		a = position.x + 16;
 		b = position.y + 0;
 		ziel = new Vector2(a, b);
-		player.setPosition(ziel);
+		anni.setPosition(ziel);
 
 	}
 	public void bewegunglinks() {
@@ -75,11 +74,11 @@ public class PlayerController {
 		float b;
 		Vector2 position;
 		Vector2 ziel;
-		position = player.getPosition();
+		position = anni.getPosition();
 		a = position.x - 16;
 		b = position.y + 0;
 		ziel = new Vector2(a, b);
-		player.setPosition(ziel);
+		anni.setPosition(ziel);
 
 	}
 
@@ -87,11 +86,9 @@ public class PlayerController {
 		// warte zeit wird runtergezählt
 		waittime -= delta;
 		if (waittime < 0) {
-			Player.cantmove = bolean ColliderRectangle.this.collision(r);
-			if (Player.cantmove == false){
+			if (anni.canmove == true){
 			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
-				// die Bewegung (hoch)
 				bewegunghoch();
 
 				// Wartezeit zuruecksetzen
@@ -122,14 +119,13 @@ public class PlayerController {
 				bewegungrechts();
 				waittime = 0.25f;
 			
-			}}
+			}}}
 		}
 	
 	
-	public void collision(){
-		
-	
-	}
+	public boolean collision(ColliderRectangle colliwand){
+		return anni.getCollider().collision(colliwand);
+		}
 	}
 	
 	

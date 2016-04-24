@@ -84,10 +84,10 @@ public class Screens implements Screen, InputProcessor {
 	public void playerRender() {
 
 		for (int i = 0; i < gameModel.players.size; i++) {
-			if (gameModel.players.get(i).player != null) {
-				if (gameModel.players.get(i).player.getPlayerNum() == 1) {
+			if (gameModel.players.get(i).anni != null) {
+				if (gameModel.players.get(i).anni.getPlayerNum() == 1) {
 
-					Player player = gameModel.players.get(i).player;
+					Player player = gameModel.players.get(i).anni;
 					Sprite s = new Sprite(Global.player1Sprite);
 
 					s.setPosition(player.getPosition().x,
