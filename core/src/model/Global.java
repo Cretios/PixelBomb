@@ -20,7 +20,7 @@ public class Global {
 		player1Sprite = new Sprite(texturePlayer1);
 	}
 
-	public Vector2 transformTilesToPixel(float tileX, float tileY) {
+	public static Vector2 transformTilesToPixel(float tileX, float tileY) {
 		// if (tileY < 14) {
 		// tileY = 14;
 		// }

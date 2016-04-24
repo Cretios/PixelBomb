@@ -13,21 +13,20 @@ import com.badlogic.gdx.math.Vector2;
  *
  */
 public class Player {
-	
+
 	private ColliderRectangle collider;
 	private Vector2 position;
 	private int playerNum;
 	public boolean canmove;
-	
+
 	public Player(Vector2 pos, int playerNum) {
 
 		this.setPosition(pos);
 		this.setPlayerNum(playerNum);
-		this.setCollider(new ColliderRectangle(pos.x + 8, pos.y + 8, 16, 16));
+		this.setCollider(new ColliderRectangle(pos.x + 8, pos.y + 8, 15, 15));
 
 	}
 
-	
 	public Vector2 getPosition() {
 		return position;
 	}

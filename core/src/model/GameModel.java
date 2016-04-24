@@ -27,7 +27,6 @@ public class GameModel {
 	TiledMap map;
 	public Wand wand;
 
-
 	public GameModel() {
 
 		// 4 Spieler
@@ -44,18 +43,18 @@ public class GameModel {
 					i,
 					createPlayer(new Vector2(obj.getRectangle().x, obj
 							.getRectangle().y)));
-			wand = new Wand(new Vector2(26, 10));
+			wand = new Wand(Global.transformTilesToPixel(26, 10));
 		}
 	}
 
 	public void update(float delta) {
 		for (Entry<PlayerController> player : players) {
-			if (!player.value.anni.equals(null)){
-				
-				if (player.value.collision(wand.collider) == true){
+			if (!player.value.anni.equals(null)) {
+
+				if (player.value.collision(wand.collider) == true) {
 					System.out.println("was ich mag");
-				}
-				else {System.out.println("was ich nicht mags");
+				} else {
+					// System.out.println("was ich nicht mags");
 				}
 				player.value.update(delta);
 			}

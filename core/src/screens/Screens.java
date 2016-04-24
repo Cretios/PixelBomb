@@ -93,7 +93,6 @@ public class Screens implements Screen, InputProcessor {
 					s.setPosition(player.getPosition().x,
 							player.getPosition().y);
 
-				
 					ColliderRectangle playercoll = player.getCollider();
 
 					collider.add(playercoll);
@@ -106,12 +105,12 @@ public class Screens implements Screen, InputProcessor {
 	}
 
 	public void walls() {
-		Vector2 wall = transformTilesToPixel(gameModel.wand.pos.x,
-				gameModel.wand.pos.y);
+		Vector2 wall = gameModel.wand.pos;
 		Sprite a = new Sprite(Global.player1Sprite);
 		a.setPosition(wall.x, wall.y);
 		// a.setPosition(20, 20);
 		sprites.add(a);
+		collider.add(gameModel.wand.collider);
 	}
 
 	@Override
@@ -119,6 +118,7 @@ public class Screens implements Screen, InputProcessor {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		shapeRenderer.setProjectionMatrix(camera.combined);
 		renderer.setView(camera);
 		renderer.render();
 		playerRender();
@@ -127,15 +127,17 @@ public class Screens implements Screen, InputProcessor {
 		// ---
 
 		// ---
+		renderer.getBatch().begin();
 		for (Sprite s : sprites) {
-			renderer.getBatch().begin();
+
 			s.draw(renderer.getBatch());
-			renderer.getBatch().end();
+
 		}
+		renderer.getBatch().end();
 		if (colliderRender) {
+
+			shapeRenderer.begin(ShapeType.Line);
 			for (ColliderRectangle c : collider) {
-				shapeRenderer.setProjectionMatrix(camera.combined);
-				shapeRenderer.begin(ShapeType.Line);
 
 				shapeRenderer.line(c.getBL(), c.getBR());
 				shapeRenderer.line(c.getBL(), c.getUL());
@@ -143,9 +145,8 @@ public class Screens implements Screen, InputProcessor {
 				shapeRenderer.line(c.getUL(), c.getUR());
 				shapeRenderer.setColor(Color.RED);
 
-				shapeRenderer.end();
-
 			}
+			shapeRenderer.end();
 		}
 		sprites.clear();
 		collider.clear();

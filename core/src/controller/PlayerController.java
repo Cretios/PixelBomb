@@ -21,6 +21,7 @@ public class PlayerController {
 	public PlayerController(Player player) {
 		this.waittime = 1;
 		this.anni = player;
+		anni.canmove = true;
 	}
 
 	/**
@@ -45,6 +46,7 @@ public class PlayerController {
 		ziel = new Vector2(a, b);
 		anni.setPosition(ziel);
 	}
+
 	public void bewegungrunter() {
 		float a;
 		float b;
@@ -57,6 +59,7 @@ public class PlayerController {
 		anni.setPosition(ziel);
 
 	}
+
 	public void bewegungrechts() {
 		float a;
 		float b;
@@ -69,6 +72,7 @@ public class PlayerController {
 		anni.setPosition(ziel);
 
 	}
+
 	public void bewegunglinks() {
 		float a;
 		float b;
@@ -86,78 +90,44 @@ public class PlayerController {
 		// warte zeit wird runtergezählt
 		waittime -= delta;
 		if (waittime < 0) {
-			if (anni.canmove == true){
-			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+			if (anni.canmove == true) {
+				if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
-				bewegunghoch();
+					bewegunghoch();
 
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
 
+				}
+
+				else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+
+					// die Bewegung (links)
+					bewegunglinks();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+				}
+
+				else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+
+					// die Bewegung (runter)
+					bewegungrunter();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+				}
+
+				else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+
+					// die Bewegung (rechts)
+					bewegungrechts();
+					waittime = 0.25f;
+
+				}
 			}
-		
-			
-			else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-
-				// die Bewegung (links)
-				bewegunglinks();
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
-			}
-			
-			else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-
-				// die Bewegung (runter)
-				bewegungrunter();
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
-			}
-			
-			else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-
-				// die Bewegung (rechts)
-				bewegungrechts();
-				waittime = 0.25f;
-			
-			}}}
-		}
-	
-	
-	public boolean collision(ColliderRectangle colliwand){
-		return anni.getCollider().collision(colliwand);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	public boolean collision(ColliderRectangle colliwand) {
+		return anni.getCollider().collision(colliwand);
+	}
+}
