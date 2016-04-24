@@ -27,7 +27,6 @@ public class GameModel {
 	TiledMap map;
 	public Wand wand;
 
-
 	public GameModel() {
 
 		// 4 Spieler
@@ -50,8 +49,8 @@ public class GameModel {
 
 	public void update(float delta) {
 		for (Entry<PlayerController> player : players) {
-			if (!player.value.player.equals(null)){
-				player.value.collision();
+			if (!player.value.player.equals(null)) {
+				player.value.collision(wand.collider);
 				player.value.update(delta);
 			}
 		}

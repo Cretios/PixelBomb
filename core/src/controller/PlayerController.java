@@ -1,5 +1,6 @@
 package controller;
 
+import Collision.ColliderRectangle;
 import characters.Player;
 
 import com.badlogic.gdx.Gdx;
@@ -45,6 +46,7 @@ public class PlayerController {
 		ziel = new Vector2(a, b);
 		player.setPosition(ziel);
 	}
+
 	public void bewegungrunter() {
 		float a;
 		float b;
@@ -57,6 +59,7 @@ public class PlayerController {
 		player.setPosition(ziel);
 
 	}
+
 	public void bewegungrechts() {
 		float a;
 		float b;
@@ -69,6 +72,7 @@ public class PlayerController {
 		player.setPosition(ziel);
 
 	}
+
 	public void bewegunglinks() {
 		float a;
 		float b;
@@ -89,81 +93,47 @@ public class PlayerController {
 		// eine sekunde warten damit der spieler sich nicht "beamt"
 		// wird später angepasst damit der spieler flüssig läuft
 		if (waittime < 0) {
-			
-			if (Player.cantmove == false){
-			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
-				// die Bewegung (hoch)
-				bewegunghoch();
+			if (player.cantmove == false) {
+				if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
+					// die Bewegung (hoch)
+					bewegunghoch();
 
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+
+				}
+
+				else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+
+					// die Bewegung (links)
+					bewegunglinks();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+				}
+
+				else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+
+					// die Bewegung (runter)
+					bewegungrunter();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+				}
+
+				else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+
+					// die Bewegung (rechts)
+					bewegungrechts();
+					waittime = 0.25f;
+
+				}
 			}
-		
-			
-			else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-
-				// die Bewegung (links)
-				bewegunglinks();
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
-			}
-			
-			else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-
-				// die Bewegung (runter)
-				bewegungrunter();
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
-			}
-			
-			else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-
-				// die Bewegung (rechts)
-				bewegungrechts();
-				waittime = 0.25f;
-			
-			}}
 		}
 	}
-	
-	public void collision(){
-		
-	
+
+	public boolean collision(ColliderRectangle r) {
+		boolean canMove = player.getCollider().collision(r);
+		return canMove;
 	}
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+}
