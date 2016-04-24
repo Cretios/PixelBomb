@@ -56,6 +56,7 @@ public class GameModel {
 				} else {
 					// System.out.println("was ich nicht mags");
 				}
+
 				player.value.update(delta);
 			}
 		}

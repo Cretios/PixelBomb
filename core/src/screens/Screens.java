@@ -108,9 +108,13 @@ public class Screens implements Screen, InputProcessor {
 		Vector2 wall = gameModel.wand.pos;
 		Sprite a = new Sprite(Global.player1Sprite);
 		a.setPosition(wall.x, wall.y);
+		ColliderRectangle wallcoll = gameModel.wand.collider;
+
 		// a.setPosition(20, 20);
 		sprites.add(a);
+
 		collider.add(gameModel.wand.collider);
+
 	}
 
 	@Override
@@ -121,9 +125,10 @@ public class Screens implements Screen, InputProcessor {
 		shapeRenderer.setProjectionMatrix(camera.combined);
 		renderer.setView(camera);
 		renderer.render();
+		gameModel.update(delta);
 		playerRender();
 		walls();
-		gameModel.update(delta);
+
 		// ---
 
 		// ---
