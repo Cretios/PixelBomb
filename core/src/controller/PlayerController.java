@@ -18,9 +18,6 @@ public class PlayerController {
 	private float waittime;
 	public Player anni;
 
-	private Vector2 newPos;
-	private Vector2 oldPos;
-
 	public PlayerController(Player player) {
 		this.waittime = 1;
 		this.anni = player;
@@ -34,104 +31,100 @@ public class PlayerController {
 	 * @param delta
 	 */
 	public void update(float delta) {
-
-		movement(newPos);
-
+		movement(delta);
+		anni.getCollider().update(anni.getPosition(), 8, 8);
 	}
 
-	public Vector2 bewegunghoch() {
+	public void bewegunghoch() {
 		float a;
 		float b;
 		Vector2 position;
+		Vector2 ziel;
 		position = anni.getPosition();
 		a = position.x + 0;
 		b = position.y + 16;
-		return new Vector2(a, b);
+		ziel = new Vector2(a, b);
+		anni.setPosition(ziel);
 	}
 
-	public Vector2 bewegungrunter() {
+	public void bewegungrunter() {
 		float a;
 		float b;
 		Vector2 position;
+		Vector2 ziel;
 		position = anni.getPosition();
 		a = position.x + 0;
 		b = position.y - 16;
-		return new Vector2(a, b);
+		ziel = new Vector2(a, b);
+		anni.setPosition(ziel);
 
 	}
 
-	public Vector2 bewegungrechts() {
+	public void bewegungrechts() {
 		float a;
 		float b;
 		Vector2 position;
+		Vector2 ziel;
 		position = anni.getPosition();
 		a = position.x + 16;
 		b = position.y + 0;
-		return new Vector2(a, b);
+		ziel = new Vector2(a, b);
+		anni.setPosition(ziel);
+
 	}
 
-	public Vector2 bewegunglinks() {
+	public void bewegunglinks() {
 		float a;
 		float b;
 		Vector2 position;
+		Vector2 ziel;
 		position = anni.getPosition();
 		a = position.x - 16;
 		b = position.y + 0;
-		return new Vector2(a, b);
+		ziel = new Vector2(a, b);
+		anni.setPosition(ziel);
 
 	}
 
-	public void movement(Vector2 target) {
-
-		if (anni.canmove == true) {
-			anni.setPosition(target);
-		}
-	}
-
-	public Vector2 nextPos(float delta) {
-		// ziel vector für collision
-		Vector2 target = anni.getPosition();
+	public void movement(float delta) {
 		// warte zeit wird runtergezählt
 		waittime -= delta;
-
 		if (waittime < 0) {
+			if (anni.canmove == true) {
+				if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 
-			if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+					bewegunghoch();
 
-				target = bewegunghoch();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
 
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
+				}
 
-			}
+				else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
 
-			else if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+					// die Bewegung (links)
+					bewegunglinks();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+				}
 
-				// die Bewegung (links)
-				target = bewegunglinks();
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
-			}
+				else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 
-			else if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+					// die Bewegung (runter)
+					bewegungrunter();
+					// Wartezeit zuruecksetzen
+					waittime = 0.25f;
+				}
 
-				// die Bewegung (runter)
-				target = bewegungrunter();
-				// Wartezeit zuruecksetzen
-				waittime = 0.25f;
-			}
+				else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
 
-			else if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+					// die Bewegung (rechts)
+					bewegungrechts();
+					waittime = 0.25f;
 
-				// die Bewegung (rechts)
-				target = bewegungrechts();
-				waittime = 0.25f;
-
+				}
 			}
 		}
-		anni.getCollider().update(target, 8, 8);
-		newPos = target;
-		return target;
 	}
 
 	public boolean collision(ColliderRectangle colliwand) {
