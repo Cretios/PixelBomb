@@ -50,11 +50,12 @@ public class GameModel {
 	public void update(float delta) {
 		for (Entry<PlayerController> player : players) {
 			if (!player.value.anni.equals(null)) {
+				player.value.nextPos(delta);
 
 				if (player.value.collision(wand.collider) == true) {
-					System.out.println("was ich mag");
+					player.value.anni.canmove = false;
 				} else {
-					// System.out.println("was ich nicht mags");
+					player.value.anni.canmove = true;
 				}
 
 				player.value.update(delta);
